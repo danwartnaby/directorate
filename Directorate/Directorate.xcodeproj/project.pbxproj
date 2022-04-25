@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F2A45C6B2816F276005613AE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F2A45C6A2816F276005613AE /* README.md */; };
 		F2AA004E26DF949C00877465 /* DirectorateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA004D26DF949C00877465 /* DirectorateApp.swift */; };
 		F2AA005026DF949C00877465 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA004F26DF949C00877465 /* ContentView.swift */; };
 		F2AA005226DF94A000877465 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2AA005126DF94A000877465 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F2A45C6A2816F276005613AE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../directorate/README.md; sourceTree = "<group>"; };
 		F2AA004A26DF949C00877465 /* Directorate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Directorate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AA004D26DF949C00877465 /* DirectorateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorateApp.swift; sourceTree = "<group>"; };
 		F2AA004F26DF949C00877465 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		F2AA004126DF949C00877465 = {
 			isa = PBXGroup;
 			children = (
+				F2A45C6A2816F276005613AE /* README.md */,
 				F2AA004C26DF949C00877465 /* Directorate */,
 				F2AA005E26DF94A000877465 /* DirectorateTests */,
 				F2AA006926DF94A000877465 /* DirectorateUITests */,
@@ -265,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2A45C6B2816F276005613AE /* README.md in Resources */,
 				F2AA005526DF94A000877465 /* Preview Assets.xcassets in Resources */,
 				F2AA005226DF94A000877465 /* Assets.xcassets in Resources */,
 			);
