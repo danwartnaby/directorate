@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F287DE762818BB2E0091845D /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F287DE752818BB2E0091845D /* Color+Hex.swift */; };
+		F287DE7B2818C3B70091845D /* UnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F287DE7A2818C3B70091845D /* UnitView.swift */; };
+		F287DE7D2818C4270091845D /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F287DE7C2818C4270091845D /* QRView.swift */; };
 		F2A45C6B2816F276005613AE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F2A45C6A2816F276005613AE /* README.md */; };
 		F2AA004E26DF949C00877465 /* DirectorateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA004D26DF949C00877465 /* DirectorateApp.swift */; };
 		F2AA005026DF949C00877465 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA004F26DF949C00877465 /* ContentView.swift */; };
@@ -43,6 +46,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F287DE752818BB2E0091845D /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		F287DE7A2818C3B70091845D /* UnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitView.swift; sourceTree = "<group>"; };
+		F287DE7C2818C4270091845D /* QRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
 		F2A45C6A2816F276005613AE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../directorate/README.md; sourceTree = "<group>"; };
 		F2AA004A26DF949C00877465 /* Directorate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Directorate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AA004D26DF949C00877465 /* DirectorateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorateApp.swift; sourceTree = "<group>"; };
@@ -92,6 +98,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F287DE772818C3970091845D /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F287DE7A2818C3B70091845D /* UnitView.swift */,
+				F287DE7C2818C4270091845D /* QRView.swift */,
+				F2ADC2FE28122DCD00132C22 /* FavouritesView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		F2AA004126DF949C00877465 = {
 			isa = PBXGroup;
 			children = (
@@ -126,9 +142,10 @@
 				F2AA007826DF94BF00877465 /* RuleRepository.swift */,
 				F2ADC2F02810D49D00132C22 /* RuleViewModel.swift */,
 				F2ADC2F52810EE0000132C22 /* ProfileView.swift */,
+				F287DE772818C3970091845D /* Profile */,
 				F2ADC2F72811978400132C22 /* SpinnerView.swift */,
 				F2ADC2FC28122C9D00132C22 /* Favourites.swift */,
-				F2ADC2FE28122DCD00132C22 /* FavouritesView.swift */,
+				F287DE752818BB2E0091845D /* Color+Hex.swift */,
 			);
 			path = Directorate;
 			sourceTree = "<group>";
@@ -295,6 +312,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F287DE7D2818C4270091845D /* QRView.swift in Sources */,
+				F287DE7B2818C3B70091845D /* UnitView.swift in Sources */,
 				F2ADC2F12810D49D00132C22 /* RuleViewModel.swift in Sources */,
 				F2AA005026DF949C00877465 /* ContentView.swift in Sources */,
 				F2AA007B26DF94F400877465 /* Rule.swift in Sources */,
@@ -304,6 +323,7 @@
 				F2ADC2F82811978400132C22 /* SpinnerView.swift in Sources */,
 				F2ADC2FD28122C9D00132C22 /* Favourites.swift in Sources */,
 				F2ADC2FF28122DCD00132C22 /* FavouritesView.swift in Sources */,
+				F287DE762818BB2E0091845D /* Color+Hex.swift in Sources */,
 				F2AA007926DF94BF00877465 /* RuleRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,7 +483,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Directorate/Preview Content\"";
 				DEVELOPMENT_TEAM = 764GKRARAV;
 				ENABLE_PREVIEWS = YES;
@@ -488,7 +508,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Directorate/Preview Content\"";
 				DEVELOPMENT_TEAM = 764GKRARAV;
 				ENABLE_PREVIEWS = YES;

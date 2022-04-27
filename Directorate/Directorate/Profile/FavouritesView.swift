@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct FavouritesView: View {
-    var onSelect: ((URL)->())?
-    
     var body: some View {
         GeometryReader { geo in
             ScrollView {
@@ -18,7 +16,7 @@ struct FavouritesView: View {
                         VStack {
                             Button {
                                 if let url = Favourites.urlFor(unit: name) {
-                                    onSelect?(url)
+                                    Session.current.profileState = .unit(url)
                                 }
                             } label: {
                                 HStack {

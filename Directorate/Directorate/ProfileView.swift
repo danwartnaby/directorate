@@ -8,117 +8,46 @@
 import UIKit
 import WebKit
 import SwiftUI
-import CodeScanner
+
+
+
+enum ProfileViewState {
+    case qrcode
+    case favourites
+    case unit(URL)
+}
+
+
+class Session: ObservableObject {
+    @Published var profileState: ProfileViewState = .qrcode
+    @Published var isLoading = false
+    
+    static let current: Session = Session()
+}
+
+
 
 struct ProfileView: View {
-    @State var url: URL?
-    @State private var isLoading = true
-    @State var unitTitle = "Loading..."
-    
-    @State var isFavourited: Bool = false
     
     var onClose: (()->())?
     
-    func handleScan(result: Result<ScanResult, ScanError>) {
-        switch result {
-        case .success(let result):
-            url = URL(string: "https://armybuilder.para-bellum.com/tlaok/\(result.string)")
-        case .failure(let error):
-            print("Scanning failed: \(error.localizedDescription)")
-        }
-    }
+    @EnvironmentObject var state: Session
     
     var body: some View {
         GeometryReader { geo in
-            if let url = url {
-                ZStack {
-                    NavigationView {
-                        WebViewContainer(url: url) { name in
-                            withAnimation {
-                                isLoading = false
-                            }
-                            unitTitle = name
-                            isFavourited = Favourites.isFavourited(name: name)
-                        }
-                        .navigationTitle(Text(unitTitle))
-                        .toolbar {
-                            ToolbarItem(placement: .bottomBar) {
-                                Button {
-                                    withAnimation {
-                                        self.url = nil
-                                        isLoading = true
-                                    }
-                                } label: {
-                                    Image(systemName: "qrcode.viewfinder")
-                                        .imageScale(.large)
-                                }
-                            }
-                            
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button {
-                                    !isFavourited ? Favourites.add(name: unitTitle, url: url) : Favourites.remove(name: unitTitle)
-                                    isFavourited.toggle()
-                                } label: {
-                                    Image(systemName: isFavourited ? "star.fill" : "star")
-                                        .imageScale(.large)
-                                }
-                            }
-                            
-                            ToolbarItem(placement: .primaryAction) {
-                                Button {
-                                    onClose?()
-                                } label: {
-                                    Image(systemName: "xmark")
-                                }
-                            }
-                        }
-                        
-                    }
-                                        
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            SpinnerProgressView(indeterminate: true, scale: 1.0)
-                                .frame(width: 100, height: 100, alignment: .center)
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                    .padding()
-                    .background(.background)
-                    .opacity(isLoading ? 1.0 : 0.0)
-                    .allowsHitTesting(isLoading)
+            ZStack {
+                switch state.profileState {
+                case .unit(let url):
+                    UnitView(url: url)
+                        .opacity(state.isLoading ? 0.0 : 1.0)
+                case .favourites:
+                    FavouritesView()
+                case .qrcode:
+                    QRView()
                 }
-                .navigationBarTitle(Text(unitTitle), displayMode: .large)
-                .navigationBarTitleDisplayMode(.large)
-                .edgesIgnoringSafeArea(.all)
             }
-            else {
-                NavigationView {
-                    CodeScannerView(codeTypes: [.qr], simulatedData: "f39ff87e94", completion: handleScan).navigationBarTitle(Text("QR Code"))
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                NavigationLink(destination: FavouritesView(onSelect: { url in
-                                    self.url = url
-                                })) {
-                                    Image(systemName: "list.star")
-                                        .imageScale(.large)
-                                }
-                            }
-                            
-                            ToolbarItem(placement: .primaryAction) {
-                                Button {
-                                    onClose?()
-                                } label: {
-                                    Image(systemName: "xmark")
-                                }
-                            }
-                        }
-                    .edgesIgnoringSafeArea(.all)
-                }
-                .navigationBarTitle(Text("QR Code"), displayMode: .large)
-                
+            .onDisappear {
+                state.profileState = .qrcode
             }
         }
     }
@@ -127,7 +56,6 @@ struct ProfileView: View {
 
 
 struct WebViewContainer: UIViewRepresentable {
-
     let url: URL
     let onLoad: ((String) -> Void)?
     
@@ -136,7 +64,8 @@ struct WebViewContainer: UIViewRepresentable {
         html, body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .rules-popup-content {
           overflow-x: hidden;
           font-family: -apple-system, "Helvetica Neue", "Lucida Grande" !important;
-          color: white !important;
+          color: #\(String(describing: Color(UIColor.label).toHex()!)) !important;
+          background-color: #\(String(describing: Color(UIColor.systemBackground).toHex()!)) !important;
         }
         
         h1, span.cq-txt-bold {
@@ -175,12 +104,12 @@ struct WebViewContainer: UIViewRepresentable {
         
         .cq-papyrus, .fading-bgr, .reveal {
           background-image: none !important;
-          background-color: black !important;
-          color: gray !important;
+          background-color: #\(String(describing: Color(UIColor.systemBackground).toHex()!)) !important;
+          color: #\(String(describing: Color(UIColor.label).toHex()!)) !important;
         }
         
         .rules-link {
-          color: white !important;
+          color: #\(String(describing: Color(UIColor.label).toHex()!)) !important;
         }
         """
         
@@ -210,17 +139,15 @@ struct WebViewContainer: UIViewRepresentable {
         webView.scrollView.showsVerticalScrollIndicator = false
                 
         DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-
-                webView.evaluateJavaScript("document.getElementsByClassName('entry-name')[0].innerText",
-                                           completionHandler: { (html: Any?, error: Error?) in
-                    if let unitname = html as? String {
-                        onLoad?(unitname)
-                    }
-                    else {
-                        onLoad?("Unit Profile")
-                    }
-                })
-
+            webView.evaluateJavaScript("document.getElementsByClassName('entry-name')[0].innerText",
+                                       completionHandler: { (html: Any?, error: Error?) in
+                if let unitname = html as? String {
+                    onLoad?(unitname)
+                }
+                else {
+                    onLoad?("Unit Profile")
+                }
+            })
         }
         
         return webView

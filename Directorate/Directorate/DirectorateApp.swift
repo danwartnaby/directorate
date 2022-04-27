@@ -13,7 +13,7 @@ struct DirectorateApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: RuleViewModel(repo: repo))
+            ContentView(viewModel: RuleViewModel(repo: repo)).environmentObject(Session.current)
         }
     }
 }
